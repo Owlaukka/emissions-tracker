@@ -31,7 +31,7 @@ class CountryEmissionsTable extends Component {
         const { title, unit, shortUnit, emissions } = this.props;
 
         return (
-            <Grid item xs={11} md={8} lg={6}>
+            <Grid item xs={12} md={8} lg={6}>
                 <Grid container justify="center">
                     <Tabs
                         value={tab}

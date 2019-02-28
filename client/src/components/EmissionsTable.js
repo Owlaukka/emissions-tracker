@@ -62,7 +62,7 @@ class EmissionsTable extends Component {
         const { type, title, unit, shortUnit } = this.props;
 
         return (
-            <Grid item xs={11} md={8} lg={6}>
+            <Grid item xs={12} md={8} lg={6}>
                 <TextField
                     label="Year"
                     value={this.state.year}

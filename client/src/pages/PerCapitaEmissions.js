@@ -52,6 +52,7 @@ class PerCapitaEmissions extends Component {
     }
 
     render() {
+        const { emissions } = this.state;
         const { classes } = this.props;
 
         return (
@@ -67,7 +68,7 @@ class PerCapitaEmissions extends Component {
                         title="Emissions Per Capita"
                         unit="tons of CO2 per capita"
                         shortUnit="t / person"
-                        emissions={this.state.emissions}
+                        emissions={emissions}
                     />
                 </Grid>
             </div>

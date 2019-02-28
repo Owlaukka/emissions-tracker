@@ -59,6 +59,7 @@ class CountryEmissions extends Component {
     }
 
     render() {
+        const { emissions } = this.state;
         const { classes } = this.props;
         const { type, countrycode } = this.props.match.params;
 
@@ -72,9 +73,9 @@ class CountryEmissions extends Component {
                     </Grid>
 
                     <CountryEmissionsTable
-                        emissions={this.state.emissions}
-                        countrycode={this.props.match.params.countrycode}
-                        type={this.props.match.params.type}
+                        emissions={emissions}
+                        countrycode={countrycode}
+                        type={type}
                         title={type === "per_capita" ? "Emissions Per Capita" : "Total Emissions"}
                         unit={type === "per_capita" ? "tons of CO2 per capita" : "kilotons of CO2"}
                         shortUnit={type === "per_capita" ? "t / person" : "kt"}
