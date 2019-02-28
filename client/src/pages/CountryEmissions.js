@@ -16,7 +16,7 @@ const styles = theme => ({
 });
 
 const fetchData = (countrycode, type, callback) => {
-    axios.get(`http://localhost:4000/api/emissions/countries/${countrycode}/${type}/range/1900-3000`)
+    axios.get(`/api/emissions/countries/${countrycode}/${type}/range/1900-3000`)
         .then(res => {
             let filteredData = res.data;
             if (type === "per_capita") {

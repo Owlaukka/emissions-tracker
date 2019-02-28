@@ -27,7 +27,7 @@ class PerCapitaEmissions extends Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:4000/api/emissions/countries/all/per_capita")
+        axios.get("/api/emissions/countries/all/per_capita")
             .then(res => {
                 const data = res.data
 

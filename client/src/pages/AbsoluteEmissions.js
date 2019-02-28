@@ -26,7 +26,7 @@ class AbsoluteEmissions extends Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:4000/api/emissions/countries/all/absolute")
+        axios.get("/api/emissions/countries/all/absolute")
             .then(res => {
                 const data = res.data;
 
