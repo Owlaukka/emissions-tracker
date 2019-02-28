@@ -25,10 +25,8 @@ class Navbar extends Component {
             <div>
                 <AppBar position="static">
                 <Tabs variant="fullWidth" value={value} onChange={this.handleChange}>
-                    <Tab component={Link} to="/" label="Home" />
-                    <Tab component={Link} to="/extras" label="Extras" />
-                    {/* <LinkTab label="Page One" href="page1" />
-                    <LinkTab label="Page Two" href="page2" /> */}
+                    <Tab component={Link} to="/" label="Absolute Emissions" />
+                    <Tab component={Link} to="/per_capita" label="Per Capita Emissions" />
                 </Tabs>
                 </AppBar>
             </div>

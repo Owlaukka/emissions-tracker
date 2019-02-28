@@ -4,28 +4,45 @@ const Readable = require('stream').Readable;
 const JSONStream = require('JSONStream');
 
 const WBdownloader = require('./WBdownloadService');
+const filters = require('./filterService');
 
 
 exports.getAbsoluteEmissions = async function () {
-    return await getEmissions('./data/all_emissions.json',
-        WBdownloader.downloadEmissionsFromWB());
+    const emissionStream = await getEmissions('./data/all_emissions.json',
+        WBdownloader.downloadEmissionsFromWB);
+
+    return emissionStream
+        .pipe(JSONStream.parse('*', filters.filterNonCountriesAndUndefinedValues))
+        .pipe(JSONStream.stringify());
 }
 
 exports.getPerCapitaEmissions = async function () {
-    return await getEmissions('./data/per_capita_emissions.json',
-        this.calculatePerCapita());
+    const emissionStream = await getEmissions('./data/per_capita_emissions.json',
+        this.calculatePerCapita);
+
+    return emissionStream
+        .pipe(JSONStream.parse('*', filters.filterNonCountriesAndUndefinedValues))
+        .pipe(JSONStream.stringify());
 }
 
 exports.getAbsoluteCountryEmissionsInRange = async function (countrycode, start, end) {
-    return await getEmissionsInRange(countrycode, start, end,
+    const emissionStream = await getEmissionsInRange(countrycode, start, end,
         './data/all_emissions.json',
-        WBdownloader.downloadEmissionsFromWB());
+        WBdownloader.downloadEmissionsFromWB);
+
+    return emissionStream
+        .pipe(JSONStream.parse('*', filters.filterNonCountriesAndUndefinedValues))
+        .pipe(JSONStream.stringify());
 }
 
 exports.getPerCapitaCountryEmissionsInRange = async function (countrycode, start, end) {
-    return await getEmissionsInRange(countrycode, start, end,
+    const emissionStream = await getEmissionsInRange(countrycode, start, end,
         './data/per_capita_emissions.json',
-        this.calculatePerCapita());
+        this.calculatePerCapita);
+
+    return emissionStream
+        .pipe(JSONStream.parse('*', filters.filterNonCountriesAndUndefinedValues))
+        .pipe(JSONStream.stringify());
 }
 
 exports.calculatePerCapita = async function () {
@@ -58,17 +75,16 @@ function calculatePerCapitaForEntry(entry, emissionsData) {
         country: entry.country,
         countrycode: entry.countrycode,
         year: entry.year,
-        per_capita: emissions && entry.value
+        value: emissions && entry.value
             ? parseFloat(emissions) / parseFloat(entry.value)
             : undefined
     }
 }
 
 async function getEmissions(emissionsFile, downloader) {
-
     if (fileDoesNotExistOrIsOld(emissionsFile)) {
         try {
-            await downloader;
+            await downloader();
         } catch (err) {
             return createEmptyStream();
         }
@@ -80,7 +96,7 @@ async function getEmissionsInRange(countrycode, start, end, emissionsFile, downl
 
     if (fileDoesNotExistOrIsOld(emissionsFile)) {
         try {
-            await downloader
+            await downloader()
         } catch (err) {
             console.log(err)
             return createEmptyStream();

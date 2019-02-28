@@ -8,13 +8,13 @@ const through2 = require('through2');
 
 
 exports.downloadEmissionsFromWB = async function () {
-    await downloadAndParse(
+    return await downloadAndParse(
         'http://api.worldbank.org/v2/en/indicator/EN.ATM.CO2E.KT?downloadformat=xml',
         './data/all_emissions.json');
 }
 
 exports.downloadPopulationFromWB = async function () {
-    await downloadAndParse(
+    return await downloadAndParse(
         'http://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?downloadformat=xml',
         './data/population.json');
 }

@@ -25,7 +25,7 @@ exports.listAbsoluteEmissionsForCountryInTimeFrame = async function (req, res) {
 
 }
 
-// /api/emissions/countries/${countrycode}/per_capita/range/${start}-${end}
+// /api/emissions/countries/:countrycode/per_capita/range/:start-:end
 exports.listPerCapitaEmissionsForCountryInTimeFrame = async function (req, res) {
     res.setHeader("Content-Type", "application/json");
     emissionStream = await dataGenerator
