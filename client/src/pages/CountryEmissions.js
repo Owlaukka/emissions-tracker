@@ -11,7 +11,12 @@ import CountryEmissionsTable from '../components/CountryEmissionsTable';
 const styles = theme => ({
     root: {
         textAlign: 'center',
-        paddingTop: theme.spacing.unit * 20,
+        [theme.breakpoints.down('lg')]: {
+            paddingTop: theme.spacing.unit * 5,
+        },
+        [theme.breakpoints.up('lg')]: {
+            paddingTop: theme.spacing.unit * 15,
+        },
     },
 });
 
@@ -55,6 +60,7 @@ class CountryEmissions extends Component {
 
     render() {
         const { classes } = this.props;
+        const { type, countrycode } = this.props.match.params;
 
         return (
             <div className={classes.root}>
@@ -69,6 +75,9 @@ class CountryEmissions extends Component {
                         emissions={this.state.emissions}
                         countrycode={this.props.match.params.countrycode}
                         type={this.props.match.params.type}
+                        title={type === "per_capita" ? "Emissions Per Capita" : "Total Emissions"}
+                        unit={type === "per_capita" ? "tons of CO2 per capita" : "kilotons of CO2"}
+                        shortUnit={type === "per_capita" ? "t / person" : "kt"}
                     />
                 </Grid>
             </div>

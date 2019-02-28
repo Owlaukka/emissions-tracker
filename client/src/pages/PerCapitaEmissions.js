@@ -12,7 +12,12 @@ import axios from 'axios';
 const styles = theme => ({
     root: {
         textAlign: 'center',
-        paddingTop: theme.spacing.unit * 20,
+        [theme.breakpoints.down('lg')]: {
+            paddingTop: theme.spacing.unit * 5,
+        },
+        [theme.breakpoints.up('lg')]: {
+            paddingTop: theme.spacing.unit * 15,
+        },
     },
 });
 

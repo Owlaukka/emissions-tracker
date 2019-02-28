@@ -28,10 +28,10 @@ class CountryEmissionsTable extends Component {
 
     render() {
         const { tab } = this.state;
-        const { emissions } = this.props;
+        const { title, unit, shortUnit, emissions } = this.props;
 
         return (
-            <Grid container justify="center">
+            <Grid item xs={11} md={8} lg={6}>
                 <Grid container justify="center">
                     <Tabs
                         value={tab}
@@ -48,10 +48,10 @@ class CountryEmissionsTable extends Component {
                         columns={[
                             { title: 'Country', field: 'country', filtering: false, },
                             { title: 'Year', field: 'year', type: 'numeric', defaultSort: 'desc', },
-                            { title: 'Total Emissions', field: 'value', type: 'numeric', filtering: false, }
+                            { title: `${title} (${shortUnit})`, field: 'value', type: 'numeric', filtering: false, }
                         ]}
                         data={emissions}
-                        title='Total Emissions'
+                        title={`${title} (${unit})`}
                         options={{
                             filtering: true,
                             pageSize: 20,
